@@ -15,6 +15,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Toaster } from "@/components/ui/sonner";
 import { BottomNav, SiteFooter, SiteHeader } from "@/components/site-chrome";
 import { supabase } from "@/integrations/supabase/client";
+import { useLowDataMode } from "@/hooks/use-auth";
 
 function NotFoundComponent() {
   return (
@@ -101,6 +102,7 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const router = useRouter();
+  useLowDataMode();
 
   // One auth listener for the whole app, filtered to identity changes.
   useEffect(() => {
