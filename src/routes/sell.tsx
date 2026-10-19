@@ -352,6 +352,8 @@ function ListingForm({ shop, onAdded }: { shop: ShopRow; onAdded: () => void }) 
         .from("products")
         .insert({
           shop_id: shop.id,
+          // The database trigger rewrites this; the column is only required by the type.
+          slug: `${slugify(title)}-${Math.random().toString(36).slice(2, 8)}`,
           category_id: categoryId || null,
           title: title.trim(),
           description: description.trim(),
@@ -373,16 +375,20 @@ function ListingForm({ shop, onAdded }: { shop: ShopRow; onAdded: () => void }) 
 
       // Photos are resized and re-encoded in the browser first: that strips the
       // GPS data phones embed, and keeps uploads small on slow networks.
-      const urls: string[] = [];
+      // Uploads sit in private storage; buyers load them through the public
+      // /api/public/img route, which only serves photos of live listings.
+      const paths: string[] = [];
       for (let i = 0; i < photos.length; i++) {
-        const blob = await compressImage(photos[i].file);
+        const photo = photos[i];
+        if (!photo) continue;
+        const blob = await compressImage(photo.file);
         const path = `${user.id}/${created.id}-${i}.webp`;
         const { error: upErr } = await supabase.storage.from(PHOTO_BUCKET).upload(path, blob, { contentType: "image/webp" });
         if (upErr) throw upErr;
-        urls.push(supabase.storage.from(PHOTO_BUCKET).getPublicUrl(path).data.publicUrl);
+        paths.push(path);
       }
-      if (urls.length) {
-        await supabase.from("product_images").insert(urls.map((url, position) => ({ product_id: created.id, url, position })));
+      if (paths.length) {
+        await supabase.from("product_images").insert(paths.map((url, position) => ({ product_id: created.id, url, position })));
       }
 
       toast.success("Listing saved");

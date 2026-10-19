@@ -62,7 +62,7 @@ export function useLowDataMode() {
   const on = !!profile?.low_data_mode;
 
   useEffect(() => {
-    document.documentElement.dataset.lowData = on ? "true" : "false";
+    document.documentElement.setAttribute("data-low-data", on ? "true" : "false");
   }, [on]);
 
   return on;

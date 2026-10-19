@@ -29,3 +29,14 @@ export function deliveryIsExpensive(itemPrice: number, deliveryFee: number): boo
 }
 
 export const CAMPUSES = ["UNILAG", "UI", "OAU", "UNN", "ABU", "UNIBEN", "UNIUYO", "LASU", "FUTA", "Covenant"];
+
+/**
+ * Browser URL for a stored photo. Demo pictures already point at /images,
+ * seller uploads are stored as private object paths and are streamed through
+ * the public image route, which only serves listings that are live.
+ */
+export function photoUrl(url: string | null | undefined): string | undefined {
+  if (!url) return undefined;
+  if (url.startsWith("/") || url.startsWith("http")) return url;
+  return `/api/public/img/${url}`;
+}

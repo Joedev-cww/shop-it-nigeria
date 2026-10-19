@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Bell, Share2, Truck, MapPin, Bike, AlertTriangle } from "lucide-react";
 import { getProduct } from "@/lib/catalog.functions";
-import { deliveryIsExpensive, naira } from "@/lib/format";
+import { deliveryIsExpensive, naira, photoUrl } from "@/lib/format";
 import { SafetyBanner, ShopBadges, Stars } from "@/components/shop-ui";
 import { WishlistButton } from "@/components/wishlist-button";
 import { Button } from "@/components/ui/button";
@@ -77,13 +77,13 @@ function ProductPage() {
       {/* Gallery */}
       <div>
         <div className="aspect-square overflow-hidden rounded-3xl bg-muted">
-          {images[imgIdx] && <img src={images[imgIdx].url} alt={product.title} width={800} height={800} className="h-full w-full object-cover" />}
+          {images[imgIdx] && <img src={photoUrl(images[imgIdx].url)} alt={product.title} width={800} height={800} className="h-full w-full object-cover" />}
         </div>
         {images.length > 1 && (
           <div className="mt-2 flex gap-2">
             {images.map((im, i) => (
               <button key={im.url} onClick={() => setImgIdx(i)} className={`h-16 w-16 overflow-hidden rounded-xl border-2 ${i === imgIdx ? "border-primary" : "border-transparent"}`}>
-                <img src={im.url} alt="" loading="lazy" className="h-full w-full object-cover" />
+                <img src={photoUrl(im.url)} alt="" loading="lazy" className="h-full w-full object-cover" />
               </button>
             ))}
           </div>
