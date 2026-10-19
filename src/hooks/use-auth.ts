@@ -24,3 +24,46 @@ export async function fetchMyRoles(userId: string): Promise<string[]> {
   const { data } = await supabase.from("user_roles").select("role").eq("user_id", userId);
   return (data ?? []).map((r) => r.role);
 }
+
+export type Profile = {
+  full_name: string | null;
+  phone: string | null;
+  default_area: string | null;
+  language: string;
+  low_data_mode: boolean;
+};
+
+/** The signed-in account's own profile row (null while signed out). */
+export function useProfile() {
+  const { user, loading } = useAuth();
+  const [profile, setProfile] = useState<Profile | null>(null);
+
+  useEffect(() => {
+    if (!user) { setProfile(null); return; }
+    let live = true;
+    supabase
+      .from("profiles")
+      .select("full_name,phone,default_area,language,low_data_mode")
+      .eq("id", user.id)
+      .maybeSingle()
+      .then(({ data }) => { if (live) setProfile((data ?? null) as Profile | null); });
+    return () => { live = false; };
+  }, [user]);
+
+  return { user, loading, profile, setProfile };
+}
+
+/**
+ * Applies the account's "low data" preference to <html data-low-data>, so the
+ * stylesheet can drop hover zoom and transitions on slow networks.
+ */
+export function useLowDataMode() {
+  const { profile } = useProfile();
+  const on = !!profile?.low_data_mode;
+
+  useEffect(() => {
+    document.documentElement.dataset.lowData = on ? "true" : "false";
+  }, [on]);
+
+  return on;
+}

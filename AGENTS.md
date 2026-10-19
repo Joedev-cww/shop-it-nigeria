@@ -8,3 +8,7 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+## Rules
+
+- Do not add root-level pathless layout routes (e.g. `src/routes/_authenticated/route.tsx`). In this router version a pathless layout at root infers the full path `/` and collides with `src/routes/index.tsx`, failing the build. Guard protected pages per-route instead (client-side session check in the route), so the app keeps one owner for `/`.
