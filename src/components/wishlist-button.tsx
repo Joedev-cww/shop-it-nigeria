@@ -24,13 +24,13 @@ export function WishlistButton({ productId }: { productId: string }) {
   }, [user, productId]);
 
   async function toggle() {
-    if (!user) return navigate({ to: "/auth" });
+    if (!user) { navigate({ to: "/auth" }); return; }
     if (saved) {
       await supabase.from("wishlists").delete().eq("user_id", user.id).eq("product_id", productId);
       setSaved(false);
     } else {
       const { error } = await supabase.from("wishlists").insert({ user_id: user.id, product_id: productId });
-      if (error) return toast.error("Could not save. Try again.");
+      if (error) { toast.error("Could not save. Try again."); return; }
       setSaved(true);
       toast.success("Saved to your wishlist");
     }

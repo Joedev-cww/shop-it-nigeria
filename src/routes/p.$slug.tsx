@@ -67,7 +67,7 @@ function ProductPage() {
   }
 
   async function notifyMe() {
-    if (!user) return toast.error("Sign in to get notified");
+    if (!user) { toast.error("Sign in to get notified"); return; }
     await supabase.from("stock_alerts").upsert({ user_id: user.id, product_id: product.id });
     toast.success("We'll let you know when it's back");
   }

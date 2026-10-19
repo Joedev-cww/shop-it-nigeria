@@ -65,7 +65,7 @@ function AuthPage() {
 
   async function oauth(provider: "google" | "lovable") {
     const r = await lovable.auth.signInWithOAuth(provider, { redirect_uri: window.location.origin });
-    if (r.error) return toast.error("Sign-in didn't complete. Please try again.");
+    if (r.error) { toast.error("Sign-in didn't complete. Please try again."); return; }
     if (r.redirected) return;
     navigate({ to: "/account" });
   }

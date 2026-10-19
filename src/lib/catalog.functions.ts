@@ -23,13 +23,13 @@ function publicClient() {
 }
 
 export type SearchInput = {
-  q?: string;
-  cat?: string;
-  campus?: string;
-  min?: number;
-  max?: number;
-  rating?: number;
-  sort?: "newest" | "price_asc" | "price_desc" | "top_rated" | "relevance";
+  q?: string | undefined;
+  cat?: string | undefined;
+  campus?: string | undefined;
+  min?: number | undefined;
+  max?: number | undefined;
+  rating?: number | undefined;
+  sort?: undefined | "newest" | "price_asc" | "price_desc" | "top_rated" | "relevance";
 };
 
 export const searchProducts = createServerFn({ method: "GET" })
@@ -43,7 +43,7 @@ export const searchProducts = createServerFn({ method: "GET" })
     sort: input.sort ?? "newest",
   }))
   .handler(async ({ data }) => {
-    const { data: rows, error } = await publicClient().rpc("search_products", {
+    const { data: rows, error } = await publicClient().rpc("search_products", Object.fromEntries(Object.entries({
       q: data.q ?? undefined,
       cat: data.cat ?? undefined,
       campus_q: data.campus ?? undefined,
@@ -52,7 +52,7 @@ export const searchProducts = createServerFn({ method: "GET" })
       min_rating: data.rating,
       sort: data.q && data.sort === "newest" ? "relevance" : data.sort,
       lim: 40,
-    });
+    }).filter(([, v]) => v !== undefined)) as { lim: number });
     if (error) throw new Error("Could not load products. Please try again.");
     return rows ?? [];
   });

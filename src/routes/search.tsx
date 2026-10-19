@@ -19,13 +19,13 @@ const catsQuery = queryOptions({ queryKey: ["categories"], queryFn: () => getCat
 
 export const Route = createFileRoute("/search")({
   validateSearch: (s: Record<string, unknown>): Search => ({
-    q: typeof s.q === "string" && s.q ? s.q : undefined,
-    cat: typeof s.cat === "string" && s.cat ? s.cat : undefined,
-    campus: typeof s.campus === "string" && s.campus ? s.campus : undefined,
-    min: s.min ? Number(s.min) || undefined : undefined,
-    max: s.max ? Number(s.max) || undefined : undefined,
-    rating: s.rating ? Number(s.rating) || undefined : undefined,
-    sort: (SORTS.find((x) => x.v === s.sort)?.v ?? undefined) as Search["sort"],
+    q: typeof s["q"] === "string" && s["q"] ? s["q"] : undefined,
+    cat: typeof s["cat"] === "string" && s["cat"] ? s["cat"] : undefined,
+    campus: typeof s["campus"] === "string" && s["campus"] ? s["campus"] : undefined,
+    min: s["min"] ? Number(s["min"]) || undefined : undefined,
+    max: s["max"] ? Number(s["max"]) || undefined : undefined,
+    rating: s["rating"] ? Number(s["rating"]) || undefined : undefined,
+    sort: (SORTS.find((x) => x.v === s["sort"])?.v ?? undefined) as Search["sort"],
   }),
   head: () => ({
     meta: [
