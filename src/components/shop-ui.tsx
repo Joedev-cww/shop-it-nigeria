@@ -1,7 +1,7 @@
 /** Small presentational building blocks shared across pages. */
 import { Link } from "@tanstack/react-router";
 import { BadgeCheck, Star, Zap, Trophy, Flame } from "lucide-react";
-import { naira } from "@/lib/format";
+import { naira, photoUrl } from "@/lib/format";
 
 export function Stars({ value, count }: { value: number; count?: number }) {
   return (
@@ -52,7 +52,7 @@ export function ProductCard({ p, eager }: { p: CardProduct; eager?: boolean }) {
       <div className="aspect-square overflow-hidden bg-muted">
         {p.image_url && (
           <img
-            src={p.image_url}
+            src={photoUrl(p.image_url)}
             alt={p.title}
             width={400}
             height={400}
