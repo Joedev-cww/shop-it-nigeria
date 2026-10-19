@@ -138,3 +138,11 @@
 @utility pb-nav {
   padding-bottom: calc(5rem + env(safe-area-inset-bottom));
 }
+
+/* Low-data mode (account setting): fewer animations, lighter on slow phones. */
+[data-low-data="true"] *,
+[data-low-data="true"] *::before,
+[data-low-data="true"] *::after {
+  transition-duration: 0.01ms !important;
+  animation-duration: 0.01ms !important;
+}

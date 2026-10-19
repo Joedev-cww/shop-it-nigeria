@@ -24,3 +24,30 @@ export async function fetchMyRoles(userId: string): Promise<string[]> {
   const { data } = await supabase.from("user_roles").select("role").eq("user_id", userId);
   return (data ?? []).map((r) => r.role);
 }
+
+/**
+ * Applies the account's "low data" preference to <html data-low-data>, so the
+ * stylesheet can drop hover zoom and transitions on slow networks.
+ */
+export function useLowDataMode() {
+  const { user } = useAuth();
+  const [on, setOn] = useState(false);
+
+  useEffect(() => {
+    if (!user) { setOn(false); return; }
+    let live = true;
+    supabase
+      .from("profiles")
+      .select("low_data_mode")
+      .eq("id", user.id)
+      .maybeSingle()
+      .then(({ data }) => { if (live) setOn(!!data?.low_data_mode); });
+    return () => { live = false; };
+  }, [user]);
+
+  useEffect(() => {
+    document.documentElement.dataset.lowData = on ? "true" : "false";
+  }, [on]);
+
+  return on;
+}
