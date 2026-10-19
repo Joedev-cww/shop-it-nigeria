@@ -61,7 +61,7 @@ function ShopPage() {
             {products.map((p) => (
               <ProductCard
                 key={p.id}
-                p={{ ...p, image_url: [...p.product_images].sort((a, b) => a.position - b.position)[0]?.url }}
+                p={{ ...p, image_url: [...p.product_images].sort((a, b) => a.position - b.position)[0]?.url ?? null }}
               />
             ))}
           </div>
