@@ -45,7 +45,9 @@ function SearchPage() {
   const search = Route.useSearch();
   const navigate = useNavigate({ from: "/search" });
   const [showFilters, setShowFilters] = useState(false);
-  const { data: cats = [] } = useQuery(catsQuery);
+  // Loader data is serialized with the route, keeping category chips identical
+  // on the server and the browser's first render.
+  const cats = Route.useLoaderData();
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["search", search],
     queryFn: () => searchProducts({ data: search }),
