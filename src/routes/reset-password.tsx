@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 export const Route = createFileRoute("/reset-password")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Set a new password — Shop It" },
       { name: "description", content: "Choose a new password for your Shop It account." },
       { property: "og:title", content: "Reset password — Shop It" },

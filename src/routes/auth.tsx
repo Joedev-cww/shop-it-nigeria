@@ -11,6 +11,8 @@ import { Label } from "@/components/ui/label";
 export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Sign in or join — Shop It" },
       { name: "description", content: "Create your Shop It account to buy and sell handmade items safely." },
       { property: "og:title", content: "Join Shop It" },

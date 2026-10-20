@@ -14,12 +14,22 @@ export const Route = createFileRoute("/shop/$slug")({
   head: ({ loaderData }) => ({
     meta: loaderData
       ? [
+          { name: "twitter:card", content: "summary_large_image" },
+          { property: "og:type", content: "website" },
           { title: `${loaderData.name} — ${loaderData.campus ?? "Student shop"} | Shop It` },
           { name: "description", content: loaderData.bio.slice(0, 155) },
           { property: "og:title", content: `${loaderData.name} on Shop It` },
           { property: "og:description", content: loaderData.bio.slice(0, 150) },
         ]
-      : [{ title: "Shop unavailable — Shop It" }, { name: "robots", content: "noindex" }],
+      : [
+          { title: "Shop unavailable — Shop It" },
+          { name: "description", content: "This shop is not currently available on Shop It." },
+          { property: "og:title", content: "Shop unavailable — Shop It" },
+          { property: "og:description", content: "This shop is not currently available on Shop It." },
+          { property: "og:type", content: "website" },
+          { name: "twitter:card", content: "summary_large_image" },
+          { name: "robots", content: "noindex" },
+        ],
   }),
   component: ShopPage,
 });

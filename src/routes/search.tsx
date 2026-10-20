@@ -29,6 +29,8 @@ export const Route = createFileRoute("/search")({
   }),
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Browse handmade products — Shop It" },
       { name: "description", content: "Search and filter handmade beads, fragrance, bags and crochet by price, campus and rating." },
       { property: "og:title", content: "Browse handmade products — Shop It" },

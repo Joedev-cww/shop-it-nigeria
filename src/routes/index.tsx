@@ -19,6 +19,8 @@ const homeQuery = queryOptions({
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Shop It — Handmade beads, scents & bags by Nigerian students" },
       { name: "description", content: "Discover handmade waist beads, fragrance oils, Ankara bags and crochet from student makers on Nigerian campuses. Pay safely in Naira." },
       { property: "og:title", content: "Shop It — Handmade by Nigerian students" },
