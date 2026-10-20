@@ -20,6 +20,10 @@ const FIELD = "h-11 w-full rounded-xl border bg-background px-3 text-sm outline-
 export const Route = createFileRoute("/account")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:title", content: "Your account — Shop It" },
+      { property: "og:description", content: "Manage your Shop It account and delivery area." },
       { title: "Your account — Shop It" },
       { name: "description", content: "Manage your Shop It name, phone, delivery area and notification preferences." },
       { name: "robots", content: "noindex" },

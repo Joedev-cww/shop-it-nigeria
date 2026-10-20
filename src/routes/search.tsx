@@ -29,6 +29,8 @@ export const Route = createFileRoute("/search")({
   }),
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { title: "Browse handmade products — Shop It" },
       { name: "description", content: "Search and filter handmade beads, fragrance, bags and crochet by price, campus and rating." },
       { property: "og:title", content: "Browse handmade products — Shop It" },
@@ -43,7 +45,9 @@ function SearchPage() {
   const search = Route.useSearch();
   const navigate = useNavigate({ from: "/search" });
   const [showFilters, setShowFilters] = useState(false);
-  const { data: cats = [] } = useQuery(catsQuery);
+  // Loader data is serialized with the route, keeping category chips identical
+  // on the server and the browser's first render.
+  const cats = Route.useLoaderData();
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: ["search", search],
     queryFn: () => searchProducts({ data: search }),

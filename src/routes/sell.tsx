@@ -69,6 +69,10 @@ function slugify(text: string) {
 export const Route = createFileRoute("/sell")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:title", content: "Sell your handmade items — Shop It" },
+      { property: "og:description", content: "Open your student shop and manage handmade listings." },
       { title: "Sell your handmade items — Shop It" },
       { name: "description", content: "Open a Shop It shop, list your beads, scents and bags, and get paid safely in Naira." },
       { name: "robots", content: "noindex" },

@@ -13,6 +13,10 @@ import { EmptyState, ProductCard, ProductGridSkeleton, type CardProduct } from "
 export const Route = createFileRoute("/wishlist")({
   head: () => ({
     meta: [
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:title", content: "Saved items — Shop It" },
+      { property: "og:description", content: "Your saved handmade products on Shop It." },
       { title: "Saved items — Shop It" },
       { name: "description", content: "The handmade pieces you saved on Shop It, with prices in Naira." },
       { name: "robots", content: "noindex" },

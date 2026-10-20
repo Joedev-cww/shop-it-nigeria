@@ -23,13 +23,22 @@ export const Route = createFileRoute("/p/$slug")({
   head: ({ loaderData }) => ({
     meta: loaderData
       ? [
+          { name: "twitter:card", content: "summary_large_image" },
           { title: `${loaderData.title} — ${naira(loaderData.price)} | Shop It` },
           { name: "description", content: loaderData.description.slice(0, 155) },
           { property: "og:title", content: `${loaderData.title} by ${loaderData.shop}` },
           { property: "og:description", content: `${naira(loaderData.price)} · ${loaderData.description.slice(0, 120)}` },
           { property: "og:type", content: "product" },
         ]
-      : [{ title: "Product unavailable — Shop It" }, { name: "robots", content: "noindex" }],
+      : [
+          { title: "Product unavailable — Shop It" },
+          { name: "description", content: "This product is not currently available on Shop It." },
+          { property: "og:title", content: "Product unavailable — Shop It" },
+          { property: "og:description", content: "This product is not currently available on Shop It." },
+          { property: "og:type", content: "website" },
+          { name: "twitter:card", content: "summary_large_image" },
+          { name: "robots", content: "noindex" },
+        ],
   }),
   component: ProductPage,
 });
