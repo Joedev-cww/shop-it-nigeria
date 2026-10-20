@@ -11,4 +11,6 @@
 
 ## Rules
 
+- Load the shared brand image through its Lovable Assets pointer and keep a downscaled local favicon; uploaded media stays lightweight while the browser icon remains directly accessible.
+
 - Do not add root-level pathless layout routes (e.g. `src/routes/_authenticated/route.tsx`). In this router version a pathless layout at root infers the full path `/` and collides with `src/routes/index.tsx`, failing the build. Guard protected pages per-route instead (client-side session check in the route), so the app keeps one owner for `/`.

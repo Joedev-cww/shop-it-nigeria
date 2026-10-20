@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { getCategories, getFeaturedShops, searchProducts } from "@/lib/catalog.functions";
-import { ProductCard, ProductGridSkeleton, Stars } from "@/components/shop-ui";
+import { EmptyState, ProductCard, ProductGridSkeleton, Stars } from "@/components/shop-ui";
 import { ShieldCheck } from "lucide-react";
 
 const homeQuery = queryOptions({
@@ -72,15 +72,15 @@ function Home() {
           <h2 id="new" className="text-xl font-bold">New arrivals</h2>
           <Link to="/search" className="text-sm font-medium text-primary">See all</Link>
         </div>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+        {data.newest.length === 0 ? <EmptyState title="No products yet" body="New arrivals will appear here when sellers publish their handmade items." /> : <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
           {data.newest.map((p, i) => (
             <ProductCard key={p.id} p={p} eager={i < 2} />
           ))}
-        </div>
+        </div>}
       </section>
 
       {/* Shops */}
-      <section aria-labelledby="shops">
+      {data.shops.length > 0 && <section aria-labelledby="shops">
         <h2 id="shops" className="mb-3 text-xl font-bold">Top student shops</h2>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {data.shops.map((s) => (
@@ -96,7 +96,7 @@ function Home() {
             </Link>
           ))}
         </div>
-      </section>
+      </section>}
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { Heart, Home, Search, Store, User } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "@/hooks/use-auth";
+import logoAsset from "@/assets/shop-it-logo.webp.asset.json";
 
 export function SiteHeader() {
   const navigate = useNavigate();
@@ -11,8 +12,9 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-30 border-b bg-background/95 backdrop-blur">
       <div className="mx-auto flex max-w-5xl items-center gap-3 px-4 py-3">
-        <Link to="/" className="shrink-0 font-display text-2xl font-extrabold tracking-tight text-primary">
-          Shop<span className="text-secondary"> It</span>
+        <Link to="/" aria-label="Shop It home" className="flex shrink-0 items-center gap-2 font-display text-xl font-extrabold text-primary">
+          <img src={logoAsset.url} alt="Shop It logo" width={40} height={40} className="h-10 w-10 rounded-lg" />
+          <span className="hidden sm:inline">Shop<span className="text-secondary"> It</span></span>
         </Link>
         <form
           role="search"
@@ -84,7 +86,7 @@ export function BottomNav() {
 export function SiteFooter() {
   return (
     <footer className="mx-auto max-w-5xl px-4 py-10 text-sm text-muted-foreground">
-      <p className="font-display text-lg font-bold text-foreground">Shop It</p>
+      <p className="flex items-center gap-2 font-display text-lg font-bold text-foreground"><img src={logoAsset.url} alt="" width={32} height={32} className="h-8 w-8 rounded-lg" />Shop It</p>
       <p className="mt-1">Handmade by Nigerian students. Paid safely, delivered with care.</p>
       <p className="mt-4">© {new Date().getFullYear()} Shop It</p>
     </footer>
