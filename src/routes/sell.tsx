@@ -20,6 +20,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { EmptyState } from "@/components/shop-ui";
+import { VerificationCard } from "@/components/seller-verification";
 
 const PHOTO_BUCKET = "product-images";
 const FIELD = "h-11 w-full rounded-xl border bg-background px-3 text-sm outline-none focus:border-primary";
@@ -132,6 +133,7 @@ function SellPage() {
   return (
     <div className="space-y-6">
       <ShopHeader shop={shop} onUpdated={setShop} />
+      {shop.status === "pending" && <VerificationCard shopId={shop.id} userId={user.id} />}
       <ListingForm shop={shop} onAdded={() => setVersion((v) => v + 1)} />
       <MyListings shop={shop} version={version} onChanged={() => setVersion((v) => v + 1)} />
     </div>
